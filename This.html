@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Letter — for you</title>
+<meta name="description" content="A letter, written by hand." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F0E9DA'/%3E%3Cpath d='M16 25 C 7 17, 7 9, 12 8 C 15 7.5, 16 10, 16 11 C 16 10, 17 7.5, 20 8 C 25 9, 25 17, 16 25 Z' fill='%239A3B34'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F0E9DA;
+    --desk:#DAD0BC;
+    --desk-2:#CFC4AD;
+    --ink:#2A2118;
+    --ink-soft:#6A5C48;
+    --accent:#9A3B34;
+    --rule:rgba(106,92,72,.14);
+    --edge:rgba(42,33,24,.10);
+    --serif:'Newsreader', Georgia, 'Times New Roman', serif;
+    --hand:'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(255,251,242,.5), transparent 60%),
+      radial-gradient(140% 120% at 50% 120%, rgba(42,33,24,.10), transparent 55%),
+      var(--desk);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:var(--serif);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    padding:clamp(20px,5vw,70px) clamp(14px,4vw,40px);
+    min-height:100vh;
+  }
+
+  ::selection{ background:var(--accent); color:var(--paper); }
+
+  .grain{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    opacity:.06; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ================= THE SHEET ================= */
+  .sheet{
+    position:relative;
+    max-width:760px;
+    margin:0 auto;
+    background-color:var(--paper);
+    background-image:repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(2.1rem - 1px),
+      var(--rule) calc(2.1rem - 1px),
+      var(--rule) 2.1rem
+    );
+    background-position:0 3.2rem;
+    padding:clamp(38px,6vw,86px) clamp(26px,6vw,92px) clamp(48px,7vw,96px);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.5) inset,
+      0 2px 3px var(--edge),
+      0 22px 60px rgba(42,33,24,.22),
+      0 3px 10px rgba(42,33,24,.12);
+    border:1px solid var(--edge);
+    border-radius:2px;
+  }
+  .sheet.intro{ opacity:0; transform:translateY(20px); animation:sheetin 1s cubic-bezier(.16,1,.3,1) .05s forwards; }
+  .sheet + .sheet{ margin-top:clamp(30px,6vw,66px); }
+  @keyframes sheetin{ to{ opacity:1; transform:none; } }
+
+  .sheet::before{
+    content:""; position:absolute; inset:0; pointer-events:none; border-radius:2px;
+    opacity:.05; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  }
+  .sheet > *{ position:relative; z-index:1; }
+
+  /* ================= LETTERHEAD ================= */
+  .date{
+    font-family:var(--hand); color:var(--ink-soft);
+    font-size:clamp(1.25rem,2.6vw,1.6rem);
+    text-align:right; line-height:1; margin:0 0 clamp(24px,4vw,44px);
+    transform:rotate(-1.5deg); transform-origin:right;
+  }
+  .laterlabel{
+    font-family:var(--hand); color:var(--ink-soft);
+    font-size:clamp(1.15rem,2.4vw,1.45rem); line-height:1;
+    margin:0 0 clamp(16px,3vw,26px); opacity:.9;
+  }
+
+  .salut{
+    font-family:var(--hand); color:var(--ink);
+    font-size:clamp(2.9rem,9vw,4.6rem);
+    line-height:.9; margin:0 0 .35em;
+  }
+  .salut.write{ clip-path:inset(0 100% 0 0); animation:writeon 1.15s cubic-bezier(.7,.02,.3,1) .35s forwards; }
+  @keyframes writeon{ to{ clip-path:inset(0 -2% 0 0); } }
+
+  .flourish{ display:block; width:min(230px,60%); height:14px; margin:2px 0 clamp(22px,4vw,40px); overflow:visible; }
+  .flourish path{ fill:none; stroke:var(--accent); stroke-width:2.4; stroke-linecap:round; stroke-dasharray:320; stroke-dashoffset:320; }
+  .flourish.load path{ animation:draw 1.1s ease 1s forwards; }
+  .flourish.reveal.in path{ animation:draw 1.1s ease .15s forwards; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  /* ================= THE LETTER ================= */
+  .letter{ font-size:clamp(1.06rem,1.5vw,1.2rem); line-height:2.1rem; color:var(--ink); }
+  .letter p{ margin:0 0 1.15em; }
+  .letter .iloveyou{
+    font-style:italic; font-weight:500;
+    font-size:clamp(1.5rem,3.4vw,2rem); line-height:1.35;
+    color:var(--ink); margin:0 0 .8em;
+  }
+  .letter .lede::first-letter{
+    font-family:var(--serif); font-weight:600; color:var(--accent);
+    font-size:3.6em; line-height:.82; float:left;
+    padding:.06em .1em 0 0; margin-top:.04em;
+  }
+  .letter em{ color:var(--accent); font-style:italic; }
+
+  .brk{ text-align:center; color:var(--accent); margin:1.7em 0; letter-spacing:.7em; font-size:1.1rem; opacity:.8; }
+  .brk span{ display:inline-block; transform:translateX(.35em); }
+
+  /* a line in his own hand */
+  .hand{
+    font-family:var(--hand); color:var(--accent);
+    font-size:clamp(1.7rem,4.2vw,2.4rem);
+    line-height:1.25; text-align:center;
+    margin:1.4em auto; max-width:28ch;
+  }
+
+  .teardrop{ position:relative; }
+  .teardrop::after{
+    content:""; position:absolute; z-index:0;
+    right:6%; top:-.4em; width:120px; height:104px;
+    transform:rotate(-9deg); pointer-events:none; filter:blur(.5px);
+    background:radial-gradient(circle at 44% 40%, rgba(154,59,52,.07), rgba(106,92,72,.16) 46%, rgba(106,92,72,0) 72%);
+    box-shadow:inset 0 0 0 1px rgba(106,92,72,.10);
+    border-radius:50%;
+  }
+
+  /* ================= SIGN-OFF ================= */
+  .signoff{ margin-top:clamp(30px,5vw,54px); }
+  .signoff .yours{ font-family:var(--serif); font-style:italic; color:var(--ink-soft); font-size:clamp(1.05rem,1.6vw,1.2rem); margin:0 0 .1em; }
+  .signoff .name{
+    font-family:var(--hand); color:var(--ink);
+    font-size:clamp(3.4rem,10vw,5.2rem); line-height:.85; margin:0;
+    display:inline-block;
+  }
+  .signoff.small .name{ font-size:clamp(2.3rem,6.5vw,3.3rem); }
+  .signoff .underline{ display:block; width:min(260px,70%); height:20px; margin-top:-2px; overflow:visible; }
+  .signoff .underline path{ fill:none; stroke:var(--accent); stroke-width:3; stroke-linecap:round;
+    stroke-dasharray:280; stroke-dashoffset:280; }
+  .signoff.in .underline path{ animation:draw 1s ease .15s forwards; }
+
+  .ps{
+    margin-top:clamp(30px,5vw,52px); padding-top:1.2em;
+    border-top:1px dashed rgba(106,92,72,.3);
+    font-family:var(--hand); color:var(--ink-soft);
+    font-size:clamp(1.3rem,2.8vw,1.7rem); line-height:1.45;
+    max-width:40ch;
+  }
+  .ps b{ color:var(--accent); font-weight:600; }
+
+  /* a small line, in his hand, at the very bottom */
+  .opened{
+    display:none; margin-top:clamp(30px,5vw,50px); padding-top:1.2em;
+    border-top:1px dashed rgba(106,92,72,.3); text-align:center;
+    font-family:var(--hand); color:var(--ink-soft);
+    font-size:clamp(1.2rem,2.5vw,1.55rem); line-height:1.3;
+    opacity:0; transition:opacity 1s ease;
+  }
+  .opened.show{ opacity:1; }
+  .opened .heart{ color:var(--accent); }
+  .opened .num{ color:var(--accent); font-weight:700; }
+
+  /* ================= reveal on scroll ================= */
+  .reveal{ opacity:0; transform:translateY(10px); transition:opacity .8s ease, transform .8s cubic-bezier(.16,1,.3,1); }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ================= accessibility ================= */
+  a:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation:none !important; transition:none !important; }
+    .sheet.intro{ opacity:1 !important; transform:none !important; }
+    .salut.write{ clip-path:none !important; }
+    .flourish path,.signoff .underline path{ stroke-dashoffset:0 !important; }
+    .reveal{ opacity:1 !important; transform:none !important; }
+  }
+
+  /* ================= print ================= */
+  @media print{
+    body{ background:#fff; padding:0; }
+    .grain{ display:none; }
+    .sheet{ box-shadow:none; border:none; max-width:none; background-image:none; opacity:1 !important; transform:none !important; padding:0.6in 0.8in; page-break-after:always; }
+    .sheet + .sheet{ margin-top:0; }
+    .sheet::before{ display:none; }
+    .teardrop::after{ display:none; }
+    :root{ --ink:#1c1610; --accent:#7d2e28; }
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ PAGE ONE ============ -->
+<article class="sheet intro">
+  <p class="date">August, 2026</p>
+
+  <h1 class="salut write">My love,</h1>
+  <svg class="flourish load" viewBox="0 0 240 14" aria-hidden="true"><path d="M4 9 C 50 2, 90 12, 130 6 C 165 1, 205 11, 236 5" /></svg>
+
+  <div class="letter">
+    <p class="iloveyou">I love you.</p>
+
+    <p class="lede">Before anything else, I want to say thank you. Thank you for coming into my life. Thank you for every laugh, every quiet conversation, every small moment, and every memory you gave me. I don't think I'll ever be able to properly explain how much they mean to me, because what I feel for you has no end.</p>
+
+    <p>We had been talking long before August 6 — I already knew your voice, your messages, the little ways you say things. But August 6 was the first time I actually saw you, and that is the day I'll never forget. I never imagined that the person I'd been talking to could come to mean this much to me, or that being near you could feel this effortless, this peaceful, this happy.</p>
+
+    <p>Living with you has shown me what your presence really means to me. It isn't only the big moments. It's the smallest things — talking about nothing, laughing at something stupid, sitting beside each other, sharing food, travelling, or just being in the same room. Somehow, even the ordinary moments became the special ones, only because they were with you.</p>
+
+    <p>I don't know how a guy like me got lucky enough to have an angel like you walk into his life. Sometimes I think there must have been a reason you were brought to me — even if that reason wasn't for us to stay together forever. Every compliment I ever gave you was true. You are the prettiest thing that ever happened to me, and I never thought this harsh, complicated life would hand me a chapter this beautiful.</p>
+
+    <p class="hand">Even if I mastered every language in the world, I'd still be lost for words to describe how beautiful you are.</p>
+
+    <div class="brk" aria-hidden="true"><span>· · ·</span></div>
+
+    <p>You are the first person who has ever made me feel something this deeply. I've never met anyone who could make me this happy, understand me this well, or make me feel so completely myself. To me, you are irreplaceable.</p>
+
+    <p>And that's what makes this so hard. As strong as it feels, I know there may be no future for us, and it hurts more than I know how to say. Some people just fit together like a piece of yourself you didn't even know was missing until you found it — that is what you are to me. Maybe something this rare doesn't happen twice in one life. But I don't want to believe in the word <em>never</em>. When two people truly want something, and there's still a will to find a way, I believe there is always some way — even if it isn't the one we imagined.</p>
+
+    <p>I know there are reasons we can't have the future I'd wish for. I know our families don't agree, and I know some things may never change. I wish love alone could be enough. Sometimes I imagine how our story could have gone — a home, children, a whole life, growing old after all these little moments — and I know that wishing doesn't always change what life has already decided.</p>
+
+    <div class="brk" aria-hidden="true"><span>· · ·</span></div>
+
+    <p>So I only want to ask you for one thing. If you're comfortable, and if it doesn't make your life any harder — stay with me a little longer. Let's travel a little farther. Let's see more places, make more memories, laugh at more stupid things, and have more ordinary days that turn beautiful just because we're in them together.</p>
+
+    <p>More than anything, I'm scared of losing you — of waking up one day and not having you beside me. You've told me before that I look at you like a psycho, and maybe that made you uncomfortable. I'm sorry if it ever did. I never want to be anything frightening to you. I want to be someone you feel safe with — protected, comfortable, happy, loved. If I ever hurt you with my feelings, my eyes, or anything I did without realising it, I'm sorry. I only ever wanted to make you happy. I never wanted my love to become a weight you had to carry. And if there's ever a way you want to be loved, tell me — I want to understand you.</p>
+
+    <p>But I don't want my love to become a cage. I don't want you to feel trapped by it, or responsible for my happiness. If one day you choose another life, I will respect it, even if it breaks me. And if we ever have to end, I hope we end gently — not with a harsh noise, but softly, with gratitude for everything we had, and memories that still make us smile.</p>
+
+    <p>If you ever marry someone else, I hope I can be there, if you want me there, to bless you and watch you begin a beautiful life. I hope I can smile and go without letting anyone see the tears, even if my heart is breaking quietly where no one can see. And if life takes you far from me, I hope you never feel you have to hate me, or block me, or erase me. I promise I won't disturb your happiness. I can stay far away if that's what you need — quietly hoping you're okay. Even just knowing, from a distance, that you're happy could be enough for me. I was once someone to you; and even if I become no one to you, you will always, always be someone to me.</p>
+
+    <p>If you ever feel unloved, or lost, with no one to turn to, remember that you can always reach out to me. I love your family too — how could I hate the people who love you, and whom you love? If you're happy, how could I really be sad? And if you're hurting, how could I ever pretend I don't care?</p>
+
+    <div class="brk" aria-hidden="true"><span>· · ·</span></div>
+
+    <p>If life is ever kind enough to cross our paths again, don't forget to say hi. Maybe years from now we'll pass each other somewhere — maybe you'll be with your family, and I'll have one of my own. I won't know what your life became, and you won't know what life did with me. But if you see me, just give me that smile of yours. Let that be enough. Let it remind us of this beautiful accident — two people who never expected to fall this deeply.</p>
+
+    <p>I once told you that if I ever have children, I might carry a small part of your name with them, or choose a name that means what yours means. Not to hold on to you — just because there will always be a part of my life where your name means something beautiful.</p>
+
+    <p class="teardrop">I'm writing this with tears falling onto the paper. If you ever see a little water on it, it came from my eyes — the tears I couldn't catch, and the words I couldn't say out loud. There are some tears you simply cannot catch once they fall, just like there are some people you cannot hold onto forever, no matter how deeply you love them. And you are that person for me.</p>
+
+    <p>Even so, I would choose every moment we had. If life gave me the choice a thousand times, I would still choose you — again and again, in every lifetime. You're in my thoughts when I'm awake, and somehow you're still there when I close my eyes. When people ask what I'm thinking about, I tell them "nothing" — but that nothing has always been you. I've imagined a wedding with you, a home with you, even a family with you, and somehow all of it feels natural. Being with you is like seeing the world in colour for the first time.</p>
+
+    <p class="hand">And on quiet evenings, I still catch myself wanting to turn to you and say — the sunset is beautiful, isn't it?</p>
+
+    <p>I don't want a replacement for you. I want you. I've held on to the hope that somehow things could change, because I can't believe something this rare just disappears without a fight. But I know love can't be forced. If your heart changes, I can't demand it back. Come back to me if there's still a part of you that wants this — but if you truly can't stay, I'll learn to accept it. I just needed you to know how much I wanted us.</p>
+
+    <p>I've tried to understand you, tried to be patient, set aside a lot of my own needs because I wanted you to be okay. I've missed the closeness we had at the start. I've missed your curiosity about me. I've missed feeling wanted. Sometimes all I wanted was something as small as flowers from you, just once — not because flowers matter, but because being remembered and chosen by you did. None of this was ever a game to me. You were never a game to me.</p>
+
+    <p>Even if our story never becomes the future I dreamed of, I'll never call it a mistake. You gave me memories I'll carry for the rest of my life, and a kind of happiness I didn't know existed. If you find mistakes in these words, or sentences that stop halfway, it's because I cried while writing them. These aren't perfect words. They're just the closest ones I could find for everything happening inside me.</p>
+
+    <div class="brk" aria-hidden="true"><span>· · ·</span></div>
+
+    <p>Thank you for coming into my life. Thank you for the memories. Thank you for making it a little more beautiful. And if our story really has to end, I hope it doesn't end with a harsh noise — I hope it ends like a song. Quietly, painfully, but with a melody I'll carry with me for the rest of my life.</p>
+
+    <p class="hand">What would I do with a whole garden, if my favourite flower isn't in it?</p>
+
+    <p>Whatever happens from here, I hope you live a beautiful life — loved, respected, safe, and happy. And somewhere inside it, I hope you remember there was once a guy who loved you with everything he knew how to give. This one small corner of the world will always, always have you in it.</p>
+  </div>
+
+  <div class="signoff reveal">
+    <p class="yours">Yours, always —</p>
+    <p class="name">Hameed</p>
+    <svg class="underline" viewBox="0 0 260 18" aria-hidden="true"><path d="M4 11 C 70 3, 150 17, 210 7 C 230 4, 245 8, 256 6" /></svg>
+  </div>
+
+  <p class="ps reveal">
+    P.S. — You are my first love. I hope you're my last. <b>Hold my hand a little longer, and I'll show you how a man can love a woman.</b>
+  </p>
+</article>
+
+<!-- ============ PAGE TWO ============ -->
+<article class="sheet">
+  <p class="laterlabel reveal">and, a little later —</p>
+
+  <h1 class="salut reveal">To Jyothi,</h1>
+  <svg class="flourish reveal" viewBox="0 0 240 14" aria-hidden="true"><path d="M4 9 C 50 2, 90 12, 130 6 C 165 1, 205 11, 236 5" /></svg>
+
+  <div class="letter">
+    <p class="lede">I know we won't be together, and honestly, it has been hard for me to accept that. Somewhere, I still wish things could have been different.</p>
+
+    <p>I hope you marry someone who loves you more than I do, takes care of you, and keeps you happy. I know I'm not handsome or rich, but I always wished I meant something to you.</p>
+
+    <p>I'm sorry for my mistakes. I never wanted to hurt you or make you uncomfortable. Jyothi, I actually cried in front of you, and you were the first woman who saw me cry after I grew up. I don't know how to explain it, but I felt safe with you. I showed you the real me — my emotions and my vulnerabilities — without hiding anything. I just hope that never made you feel weird or uncomfortable.</p>
+
+    <p>I don't want to lose you completely. Even if we can't be together, I hope we can stay in touch and never become complete strangers. I'll always be happy to hear from you, even if it's just a small "hi."</p>
+
+    <p>I'll always wish the best for you, and I hope you achieve everything you dream of. Take care of yourself, Jyothi. I'll always be grateful that I could be myself around you.</p>
+  </div>
+
+  <div class="signoff small reveal">
+    <p class="yours">Always —</p>
+    <p class="name">Hameed</p>
+    <svg class="underline" viewBox="0 0 260 18" aria-hidden="true"><path d="M4 11 C 70 3, 150 17, 210 7 C 230 4, 245 8, 256 6" /></svg>
+  </div>
+
+  <p class="opened" id="opened" aria-live="polite">
+    <span class="heart" aria-hidden="true">♥</span>&nbsp; you've opened this letter <span class="num" id="count">0</span> <span id="countword">times</span>
+  </p>
+</article>
+
+<script>
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- gentle reveals ---- */
+    var items = document.querySelectorAll('.reveal');
+    if(reduce || !('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold:0.2, rootMargin:'0px 0px -6% 0px' });
+      items.forEach(function(el){ io.observe(el); });
+    }
+
+    /* ------------------------------------------------------------------
+       OPEN COUNTER — counts every open, remembers the total (Abacus).
+       To RESET: change COUNTER_KEY below to a new word (e.g. "opens2").
+    ------------------------------------------------------------------ */
+    var COUNTER_NAMESPACE = "hameed-letter-aug6";
+    var COUNTER_KEY       = "opens";
+
+    var url = "https://abacus.jasoncameron.dev/hit/" + COUNTER_NAMESPACE + "/" + COUNTER_KEY;
+
+    function countUp(el, target){
+      target = Math.max(0, target|0);
+      if(reduce || target === 0){ el.textContent = target; return; }
+      var dur = 1100, start = null;
+      function tick(now){
+        if(start === null) start = now;
+        var p = Math.min(1, (now - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(eased * target);
+        if(p < 1) requestAnimationFrame(tick); else el.textContent = target;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    fetch(url, { cache: "no-store" })
+      .then(function(r){ if(!r.ok) throw new Error("bad status"); return r.json(); })
+      .then(function(data){
+        var n = data && typeof data.value === "number" ? data.value : null;
+        if(n === null) throw new Error("no value");
+        var box = document.getElementById("opened");
+        var num = document.getElementById("count");
+        var word = document.getElementById("countword");
+        if(!box || !num) return;
+        word.textContent = (n === 1) ? "time" : "times";
+        box.style.display = "block";
+        countUp(num, n);
+        requestAnimationFrame(function(){ box.classList.add("show"); });
+      })
+      .catch(function(){ /* if unreachable, the line stays hidden */ });
+  })();
+</script>
+</body>
+</html>
